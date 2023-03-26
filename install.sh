@@ -47,7 +47,25 @@ echo "options vfio_iommu_type1 allow_unsafe_interrupts=1" > /etc/modprobe.d/iomm
 # Ignore messages, just as specified in the grub
 echo "options kvm ignore_msrs=1" > /etc/modprobe.d/kvm.conf
 
-# Finally, let's enable the GPUs in OpenStack (please adjust to your GPU PCI ID)
-
 # Enable IP port forwarding
-echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
+sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
+sysctl -p
+
+sudo apt update
+sudo apt install -y libvirt-daemon virt-manager qemu-kvm genisoimage virt-viewer
+sudo apt install -y cpu-checker
+
+# Set up the workspace
+mkdir /home/tensordock/tensordock
+wget -q -O /home/tensordock/tensordock/speedtest-cli.py https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py
+chmod +x /home/tensordock/tensordock/speedtest-cli.py > /dev/null
+sudo apt install -y python3-pip nvme-cli fail2ban -y iperf3
+
+# Enable passwordless sudo execution
+cat >> /etc/sudoers << EOF
+tensordock ALL=(ALL) NOPASSWD:ALL
+EOF
+
+# Update grub
+update-grub
+update-initramfs -u
