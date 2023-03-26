@@ -34,7 +34,7 @@ with open("outIP.temp") as contents:
                     "vm": None
                 })
         else:
-            pciId = line[0:line.rfind(":00.1")+5]
+            pciId = line[0:line.rfind(":00")+5]
             for gpu in gpuData[prevGpuId]:
                 if(gpu["pciId"] == prevPciId):
                     if("additionalIds" not in gpu):
