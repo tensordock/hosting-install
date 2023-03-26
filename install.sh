@@ -52,7 +52,7 @@ sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
 sysctl -p
 
 sudo apt update
-sudo apt install -y libvirt-daemon virt-manager qemu-kvm genisoimage virt-viewer
+sudo apt install -y libvirt-daemon libvirt-daemon-system virt-manager qemu-utils qemu-kvm genisoimage virt-viewer libguestfs-tools libosinfo-bin tuned
 sudo apt install -y cpu-checker
 
 # Set up the workspace
@@ -66,6 +66,20 @@ cat >> /etc/sudoers << EOF
 tensordock ALL=(ALL) NOPASSWD:ALL
 EOF
 
+# Set ACL permissions
+sudo setfacl -R -b /var/lib/libvirt/images
+sudo setfacl -R -m u:$USER:rwX /var/lib/libvirt/images
+sudo setfacl -m d:u:$USER:rwx /var/lib/libvirt/images
+
 # Update grub
 update-grub
 update-initramfs -u
+
+# Import OS templates
+sudo wget https://tensordock.nyc3.cdn.digitaloceanspaces.com/templates/ubuntu2004.qcow2 -O /var/lib/libvirt/images/template_ubuntu2004.qcow2
+sudo wget https://tensordock.nyc3.cdn.digitaloceanspaces.com/templates/ubuntu2204.qcow2 -O /var/lib/libvirt/images/template_ubuntu2204.qcow2
+sudo wget https://tensordock.nyc3.cdn.digitaloceanspaces.com/templates/ubuntu2004-ml-tensorflow.qcow2 -O /var/lib/libvirt/images/template_ubuntu2004-ml-tensorflow.qcow2
+sudo wget https://tensordock.nyc3.cdn.digitaloceanspaces.com/templates/ubuntu2004-ml-rapids.qcow2 -O /var/lib/libvirt/images/template_ubuntu2004-ml-rapids.qcow2
+sudo wget https://tensordock.nyc3.cdn.digitaloceanspaces.com/templates/ubuntu2004-ml-pytorch.qcow2 -O /var/lib/libvirt/images/template_ubuntu2004-ml-pytorch.qcow2
+sudo wget https://tensordock.nyc3.cdn.digitaloceanspaces.com/templates/ubuntu2004-ml-everything.qcow2 -O /var/lib/libvirt/images/template_ubuntu2004-ml-everything.qcow2
+sudo wget https://tensordock.nyc3.cdn.digitaloceanspaces.com/templates/windows10.qcow2 -O /var/lib/libvirt/images/template_windows10.qcow2

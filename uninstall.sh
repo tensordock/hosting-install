@@ -1,6 +1,5 @@
-sudo apt-get purge libvirt* kvm qemu*
-sudo apt autoremove
-
+sudo apt purge -y libvirt* kvm qemu*
+sudo apt autoremove -y
 
 echo "We have to tell the host to ignore the "
 echo "GPUs that will be passed through"
