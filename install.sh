@@ -60,16 +60,12 @@ mkdir /home/tensordock/tensordock
 wget -q -O /home/tensordock/tensordock/speedtest-cli.py https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py
 chmod +x /home/tensordock/tensordock/speedtest-cli.py > /dev/null
 sudo apt install -y python3-pip nvme-cli fail2ban -y iperf3
+sudo python3 benchmark.py
 
 # Enable passwordless sudo execution
 cat >> /etc/sudoers << EOF
 tensordock ALL=(ALL) NOPASSWD:ALL
 EOF
-
-# Set ACL permissions
-sudo setfacl -R -b /var/lib/libvirt/images
-sudo setfacl -R -m u:$USER:rwX /var/lib/libvirt/images
-sudo setfacl -m d:u:$USER:rwx /var/lib/libvirt/images
 
 # Update grub
 update-grub
@@ -83,3 +79,8 @@ sudo wget https://tensordock.nyc3.cdn.digitaloceanspaces.com/templates/ubuntu200
 sudo wget https://tensordock.nyc3.cdn.digitaloceanspaces.com/templates/ubuntu2004-ml-pytorch.qcow2 -O /var/lib/libvirt/images/template_ubuntu2004-ml-pytorch.qcow2
 sudo wget https://tensordock.nyc3.cdn.digitaloceanspaces.com/templates/ubuntu2004-ml-everything.qcow2 -O /var/lib/libvirt/images/template_ubuntu2004-ml-everything.qcow2
 sudo wget https://tensordock.nyc3.cdn.digitaloceanspaces.com/templates/windows10.qcow2 -O /var/lib/libvirt/images/template_windows10.qcow2
+
+# Set ACL permissions
+sudo setfacl -R -b /var/lib/libvirt/images
+sudo setfacl -R -m u:$USER:rwX /var/lib/libvirt/images
+sudo setfacl -m d:u:$USER:rwx /var/lib/libvirt/images
