@@ -6,12 +6,17 @@ count = 0
 gpuData = {}
 
 # Loop through the new file, and add the GPU data to the dictionary
+prevGpuId = ""
+prevPciId = ""
+
 with open("outIP.temp") as contents:
-    for line in contents:
+    for count, line in enumerate(contents):
         if(":00.0" in line):
             gpuIdIndex = line.rfind("10de:")
             gpuId = line[gpuIdIndex:gpuIdIndex+9]
             pciId = line[0:line.rfind(":00.0")+5]
+            prevGpuId = gpuId
+            prevPciId = pciId
             if(gpuId not in gpuData):
                 gpuData[gpuId] = [
                     {
@@ -28,6 +33,21 @@ with open("outIP.temp") as contents:
                     "disabled": False,
                     "vm": None
                 })
+        else:
+            pciId = line[0:line.rfind(":00.1")+5]
+            for gpu in gpuData[prevGpuId]:
+                if(gpu["pciId"] == prevPciId):
+                    if("additionalIds" not in gpu):
+                        gpu["additionalIds"] = pciId
+                    else:
+                        gpu["additionalIds"] += "," + pciId
+            # gpuData[prevGpuId].append({
+            #     "pciId": pciId,
+            #     "used": False,
+            #     "disabled": False,
+            #     "vm": None
+            # })
+
 os.remove('outIP.temp')
 
 with open("/home/tensordock/tensordock/dataGPUs.json", "w") as outfile:
