@@ -52,3 +52,17 @@ os.remove('outIP.temp')
 
 with open("/home/tensordock/tensordock/dataGPUs.json", "w") as outfile:
     outfile.write(json.dumps(gpuData, indent=1))
+
+
+# Create a new file storing an array of IP addresses from range 192.168.122.2-192.168.122.253
+ipAddresses = []
+for i in range(2, 254):
+    ipAddressDict = {
+        "ip": "192.168.122." + str(i),
+        "used": False,
+        "vm": None
+    }
+    ipAddresses.append(ipAddressDict)
+
+with open("/home/tensordock/tensordock/dataIPs.json", "w") as outfile:
+    outfile.write(json.dumps(ipAddresses, indent=1))
