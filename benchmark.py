@@ -66,3 +66,17 @@ for i in range(2, 254):
 
 with open("/home/tensordock/tensordock/dataIPs.json", "w") as outfile:
     outfile.write(json.dumps(ipAddresses, indent=1))
+
+os.system('sudo echo "#!/bin/bash" > /etc/libvirt/hooks/qemu')
+os.system('sudo chmod +x /etc/libvirt/hooks/qemu')
+
+networkXml = os.popen('sudo virsh net-dumpxml default').read()
+if("<dhcp>" in networkXml):
+    networkXml = networkXml[:networkXml.find('<dhcp>')]+networkXml[networkXml.find('</dhcp>')+7:]
+    os.system('sudo virsh net-destroy default')
+    os.system('sudo virsh net-undefine default')
+    with open("/home/tensordock/tensordock/network.xml", "w") as outfile:
+        outfile.write(networkXml)
+    os.system('sudo virsh net-create /home/tensordock/tensordock/network.xml')
+    os.system('sudo virsh net-start default')
+    os.system('sudo virsh net-autostart default')
