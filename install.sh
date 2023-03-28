@@ -52,7 +52,7 @@ sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
 sysctl -p
 
 sudo apt update
-sudo apt install -y libvirt-daemon libvirt-daemon-system virt-manager qemu-utils qemu-kvm genisoimage virt-viewer libguestfs-tools libosinfo-bin tuned
+sudo apt install -y libvirt-daemon libvirt-daemon-system virt-manager qemu-utils qemu-kvm genisoimage virt-viewer libguestfs-tools libosinfo-bin tuned cloud-image-utils
 sudo apt install -y cpu-checker
 
 # Set up the workspace
