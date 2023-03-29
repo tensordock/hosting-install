@@ -77,6 +77,6 @@ if("<dhcp>" in networkXml):
     os.system('sudo virsh net-undefine default')
     with open("/home/tensordock/tensordock/network.xml", "w") as outfile:
         outfile.write(networkXml)
-    os.system('sudo virsh net-create /home/tensordock/tensordock/network.xml')
+    os.system('sudo virsh net-define /home/tensordock/tensordock/network.xml')
     os.system('sudo virsh net-start default')
     os.system('sudo virsh net-autostart default')
