@@ -72,13 +72,13 @@ update-grub
 update-initramfs -u
 
 # Import OS templates
-sudo wget https://tensordock.nyc3.cdn.digitaloceanspaces.com/templates/ubuntu2004.qcow2 -O /var/lib/libvirt/images/template_ubuntu2004.qcow2
-sudo wget https://tensordock.nyc3.cdn.digitaloceanspaces.com/templates/ubuntu2204.qcow2 -O /var/lib/libvirt/images/template_ubuntu2204.qcow2
-sudo wget https://tensordock.nyc3.cdn.digitaloceanspaces.com/templates/ubuntu2004-ml-tensorflow.qcow2 -O /var/lib/libvirt/images/template_ubuntu2004-ml-tensorflow.qcow2
-sudo wget https://tensordock.nyc3.cdn.digitaloceanspaces.com/templates/ubuntu2004-ml-rapids.qcow2 -O /var/lib/libvirt/images/template_ubuntu2004-ml-rapids.qcow2
-sudo wget https://tensordock.nyc3.cdn.digitaloceanspaces.com/templates/ubuntu2004-ml-pytorch.qcow2 -O /var/lib/libvirt/images/template_ubuntu2004-ml-pytorch.qcow2
-sudo wget https://tensordock.nyc3.cdn.digitaloceanspaces.com/templates/ubuntu2004-ml-everything.qcow2 -O /var/lib/libvirt/images/template_ubuntu2004-ml-everything.qcow2
-sudo wget https://tensordock.nyc3.cdn.digitaloceanspaces.com/templates/windows10.qcow2 -O /var/lib/libvirt/images/template_windows10.qcow2
+sudo wget https://templates.tensordock.cloud/ubuntu2004.qcow2 -O /var/lib/libvirt/images/template_ubuntu2004.qcow2
+sudo wget https://templates.tensordock.cloud/ubuntu2204.qcow2 -O /var/lib/libvirt/images/template_ubuntu2204.qcow2
+sudo wget https://templates.tensordock.cloud/ubuntu2004-ml-tensorflow.qcow2 -O /var/lib/libvirt/images/template_ubuntu2004-ml-tensorflow.qcow2
+sudo wget https://templates.tensordock.cloud/ubuntu2004-ml-rapids.qcow2 -O /var/lib/libvirt/images/template_ubuntu2004-ml-rapids.qcow2
+sudo wget https://templates.tensordock.cloud/ubuntu2004-ml-pytorch.qcow2 -O /var/lib/libvirt/images/template_ubuntu2004-ml-pytorch.qcow2
+sudo wget https://templates.tensordock.cloud/ubuntu2004-ml-everything.qcow2 -O /var/lib/libvirt/images/template_ubuntu2004-ml-everything.qcow2
+sudo wget https://templates.tensordock.cloud/windows10.qcow2 -O /var/lib/libvirt/images/template_windows10.qcow2
 
 # Set ACL permissions
 sudo setfacl -R -b /var/lib/libvirt/images
