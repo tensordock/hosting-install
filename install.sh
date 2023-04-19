@@ -85,4 +85,5 @@ sudo setfacl -R -b /var/lib/libvirt/images
 sudo setfacl -R -m u:$USER:rwX /var/lib/libvirt/images
 sudo setfacl -m d:u:$USER:rwx /var/lib/libvirt/images
 
+sudo iptables -t nat -A LIBVIRT_PRT -s 192.168.122.0/24 -j MASQUERADE
 sudo reboot
